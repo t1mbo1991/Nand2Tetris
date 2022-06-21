@@ -1,0 +1,349 @@
+class Spielfeld {
+    field int xKoordinate;
+    field int yKoordinate;
+    field Array feldInhalt;
+    field Array locked;
+    field Array flagged;
+    field int feldSize, xSize, ySize;
+    field Draw draw;
+
+    constructor Spielfeld new(int xSize1, int ySize1) {
+        //Erstelle Array und Fülle es mit 0en
+        var int i;
+        let xSize = xSize1;
+        let ySize = ySize1;
+        let feldSize = xSize*ySize;
+        let feldInhalt = Array.new(feldSize);
+        let locked = Array.new(feldSize);
+        let flagged = Array.new(feldSize);
+        let i=0;
+        let draw = Draw.new();
+        while(i<feldSize) {
+            let feldInhalt[i] = 0;
+            let locked[i] = true;
+            let flagged[i] = false;
+            let i=i+1;
+        }
+        let xKoordinate = 32;
+        let yKoordinate = 32;
+        return this;
+    }
+
+    method void initFeld() {
+        var int counter, startX, startY, endX, endY;
+        let counter = -1;
+        let startX = xKoordinate;
+        let startY = yKoordinate;
+        let endX = startX;
+        let endY = startY + (16*ySize);
+        do Output.moveCursor(1,28);
+        do Output.printString("MINESWEEPER");
+        do Output.moveCursor(22,2);
+        do Output.printString("[q]Quit - [Arrow-Keys]Move Cursor - [Enter]Log-In - [f]Flag");
+        do Screen.setColor(true);
+        while(counter < xSize) {
+            do Screen.drawLine(startX, startY, endX, endY);
+            let startX = startX + 16;
+            let endX = startX;
+            let counter = counter +1;
+        }
+        let counter=-1;
+        let startX = xKoordinate;
+        let endX=startX + (16*xSize);
+        let endY=startY;
+        while(counter < ySize) {
+            do Screen.drawLine(startX, startY, endX, endY);
+            let startY = startY + 16;
+            let endY = startY;
+            let counter = counter +1;
+        }
+        return;
+    }
+
+    method void initBombs(int anzahlBomben, int number) {
+        //Random '-1' für Bombe ins Array setzen
+        var int counter, index;
+        let counter=0;
+        do Random.setSeed(number);
+        while(counter<anzahlBomben) {
+            let index = Random.randRange(feldSize);
+            if (feldInhalt[index] = 0) {
+                let counter = counter+1;
+            }
+            let feldInhalt[index] = -1;
+        }
+        return;
+    }
+
+    method void berechneNachbarn() {
+        //Für jeden Array-Eintrag berechnen, wie viele Bomben(-1) in der direkten Umgebung sind
+        //Achtung, bei Einträgen am Rand
+        var int counter,mineCounter,helfer;
+        let counter=0;
+        while(counter<feldSize) {
+            let mineCounter = 0;
+            if(feldInhalt[counter]=0) {
+                if(checkUpperBorder(counter)=false) {
+                    //Checke Oben Mitte
+                    let helfer = checkField(counter-xSize);
+                    let mineCounter = mineCounter + helfer;
+                    if(checkLeftBorder(counter) = false) {
+                        //Checke Oben Links
+                        let helfer = checkField(counter-xSize-1);
+                        let mineCounter = mineCounter + helfer;
+                    }
+                    if(checkRightBorder(counter) = false) {
+                        //Checke Oben Rechts
+                        let helfer = checkField(counter-xSize+1);
+                        let mineCounter = mineCounter + helfer;
+                    }
+                }
+                if(checkLeftBorder(counter) = false) {
+                    //Checke Links Mitte
+                    let helfer = checkField(counter-1);
+                    let mineCounter = mineCounter + helfer;
+                }
+                if(checkRightBorder(counter) = false) {
+                    //Checke Rechts Mitte
+                    let helfer = checkField(counter+1);
+                    let mineCounter = mineCounter + helfer;
+                }
+                if(checkDownBorder(counter) = false) {
+                    //Checke Unten Mitte
+                    let helfer = checkField(counter+xSize);
+                    let mineCounter = mineCounter + helfer;
+                    if(checkLeftBorder(counter) = false) {
+                        //Checke Unten Links
+                        let helfer = checkField(counter+xSize-1);
+                        let mineCounter = mineCounter + helfer;
+                    }
+                    if(checkRightBorder(counter) = false) {
+                        //Checke Unten Rechts
+                        let helfer = checkField(counter+xSize+1);
+                        let mineCounter = mineCounter + helfer;
+                    }
+                }
+                let feldInhalt[counter] = mineCounter;
+            }
+            let counter = counter +1;
+        }
+        return;
+    }
+
+    method int checkField(int feld) {
+        if(feldInhalt[feld] = -1) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    method boolean checkUpperBorder(int position) {
+        //return true, if Position is at Upper Border of the Field
+        let position = position;
+        if (position < xSize) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    method boolean checkDownBorder(int Position) {
+        var int helfer;
+        let helfer = (ySize-1)*xSize;
+        if (Position > helfer) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    method boolean checkLeftBorder(int Position) {
+        var int rest;
+        let rest = Math.mod(Position,xSize);
+        if(rest=0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    method boolean checkRightBorder(int Position) {
+        var int rest;
+        let Position=Position+1;
+        let rest = Math.mod(Position,xSize);
+        if(rest = 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    method boolean revealFeld(int feld) {
+        if (flagged[feld] = true) { return false; }
+        if (~locked[feld]) { return false; }
+        do setPosition(feld);
+        let locked[feld] = false;
+        if (feldInhalt[feld] = -1) {
+            do draw.mine(xKoordinate,yKoordinate);
+            do revealAll();
+            return true;
+        }
+        if (feldInhalt[feld] = 0) {
+            do draw.zero(xKoordinate,yKoordinate);
+             if(~checkUpperBorder(feld)) {
+                do revealFeld(feld-xSize);
+                if(~checkLeftBorder(feld)) {
+                    do revealFeld(feld-xSize-1);
+                }
+                if(~checkRightBorder(feld)) {
+                    do revealFeld(feld-xSize+1);
+                }
+             }
+             if(~checkLeftBorder(feld)) {
+                do revealFeld(feld-1);
+             }
+             if(~checkRightBorder(feld)) {
+                do revealFeld(feld+1);
+             }
+             if(~checkDownBorder(feld)){
+                do revealFeld(feld+xSize);
+                if(~checkLeftBorder(feld)) {
+                    do revealFeld(feld+xSize-1);
+                }
+                if(~checkRightBorder(feld)) {
+                    do revealFeld(feld+xSize+1);
+                }
+             }
+        }
+        else {
+            do checkBiggerZero(feld);
+        }
+        return false;
+    }
+
+    method void revealFeldMove(int feld) {
+        do setPosition(feld);
+        if(flagged[feld]) {
+            do draw.flag(xKoordinate,yKoordinate);
+            return;
+        }
+        if (locked[feld] = true) { return; }
+        if (feldInhalt[feld] = -1) {
+            do draw.mine(xKoordinate,yKoordinate);
+            do revealAll();
+            return;
+        }
+        if (feldInhalt[feld] = 0) {
+            do draw.zero(xKoordinate,yKoordinate);
+        }
+        else {
+            do checkBiggerZero(feld);
+        }
+        return;
+    }
+
+    method void checkBiggerZero(int feld) {
+        if (feldInhalt[feld] = 1) {
+            do draw.one(xKoordinate,yKoordinate);
+        }
+        if (feldInhalt[feld] = 2) {
+            do draw.two(xKoordinate,yKoordinate);
+        }
+        if (feldInhalt[feld] = 3) {
+            do draw.three(xKoordinate,yKoordinate);
+        }
+        if (feldInhalt[feld] = 4) {
+            do draw.four(xKoordinate,yKoordinate);
+        }
+        if (feldInhalt[feld] = 5) {
+            do draw.five(xKoordinate,yKoordinate);
+        }
+        if (feldInhalt[feld] = 6) {
+            do draw.six(xKoordinate,yKoordinate);
+        }
+        if (feldInhalt[feld] = 7) {
+            do draw.seven(xKoordinate,yKoordinate);
+        }
+        if (feldInhalt[feld] = 8) {
+            do draw.eight(xKoordinate,yKoordinate);
+        }
+        return;
+    }
+
+    method void setPosition(int feld) {
+        var int counter1, counter2;
+        let counter1 = 0;
+        let counter2 = 0;
+        let xKoordinate = 32;
+        let yKoordinate = 32;
+        while(counter1<feld) {
+            let xKoordinate = xKoordinate +16;
+            let counter2=counter2+1;
+            if(counter2=xSize) {
+                let yKoordinate = yKoordinate +16;
+                let xKoordinate = 32;
+                let counter2 = 0;
+            }
+            let counter1 = counter1 +1;
+        }
+        return;
+    }
+
+    method void revealAll() {
+        var int counter;
+        let counter = 0;
+        while(counter<feldSize){
+            if (flagged[counter]) {
+                do setFlag(counter);
+            }
+            do revealFeld(counter);
+            let counter = counter +1;
+        }
+        return;
+    }
+
+    method void setFlag(int feld){
+        if(locked[feld]){
+            if(~flagged[feld]) {
+                let flagged[feld] = true;
+                do Screen.setColor(true);
+                do setPosition(feld);
+                do draw.flag(xKoordinate, yKoordinate);
+            }
+            else {
+                let flagged[feld] = false;
+                do Screen.setColor(false);
+                do setPosition(feld);
+                do draw.flag(xKoordinate, yKoordinate);
+                do Screen.setColor(true);
+            }
+        }
+        return;
+    }
+
+    method boolean everythingDiscovered() {
+        var int counter;
+        let counter = 0;
+        while(counter < feldSize) {
+            if(feldInhalt[counter]>-1) {
+                if(locked[counter]) {
+                    return false;
+                }
+            }
+            let counter = counter +1;
+        }
+        return true;
+    }
+
+    method void dispose() {
+        do draw.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

@@ -1,0 +1,81 @@
+class Game {
+    field Spielfeld spielfeld;
+    field Message message;
+    field Cursor cursor;
+    field int xSize;
+    field int ySize;
+
+
+    constructor Game new() {
+        let message = Message.new();
+        let xSize =28;
+        let ySize =12;
+        let spielfeld = Spielfeld.new(xSize,ySize);
+        let cursor=Cursor.new(xSize/2,ySize/2,xSize, ySize);
+        return this;
+    }
+
+    method void run() {
+        var char key;
+        var boolean exit;
+        var boolean lost;
+        var int zahl;
+        var int feld;
+        let exit=false;
+        do message.greeting();
+        let zahl= Keyboard.readInt("Type a Number to Start the Game!");
+        do Screen.clearScreen();
+        do spielfeld.initFeld();
+        do spielfeld.initBombs(100,zahl);
+        do spielfeld.berechneNachbarn();
+        do cursor.start();
+        while(~exit) {
+            let feld = cursor.getFeld(xSize);
+            while (key=0) {
+                let key = Keyboard.keyPressed();
+            }
+            if (key = 131) {
+                do cursor.moveUp();
+            }
+            if (key = 133) { do cursor.moveDown(); }
+            if (key = 130) { do cursor.moveLeft(); }
+            if (key = 132) { do cursor.moveRight(); }
+            if (key = 128) {
+                do cursor.disappear();
+                let lost = spielfeld.revealFeld(cursor.getFeld(xSize));
+                if (lost) {
+                    do message.lost();
+                    let exit = true;
+                }
+                else {
+                    do checkWin();
+                }
+            }
+            if (key = 70) {
+                do cursor.disappear();
+                do spielfeld.setFlag(cursor.getFeld(xSize));
+                do checkWin();
+            }
+            if (key = 81) { let exit = true; }
+            while(~(key = 0)) {
+                let key= Keyboard.keyPressed();
+            }
+            do spielfeld.revealFeldMove(feld);
+        }
+        return;
+    }
+
+    method void checkWin() {
+        if (spielfeld.everythingDiscovered()) {
+            do message.won();
+        }
+        return;
+    }
+
+    method void dispose() {
+        do spielfeld.dispose();
+        do message.dispose();
+        return;
+    }
+
+}

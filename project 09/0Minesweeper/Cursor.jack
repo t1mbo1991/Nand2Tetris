@@ -1,0 +1,101 @@
+class Cursor {
+    field int xPos;
+    field int yPos;
+    field Draw draw;
+    field int feld;
+    field int yMax, xMax;
+
+    constructor Cursor new(int xStart, int yStart, int xMaximum, int yMaximum) {
+        let xPos = xStart*16;
+        let yPos = yStart*16;
+        let draw = Draw.new();
+        let yMax = 16 + (16* yMaximum);
+        let xMax = 16 + (16* xMaximum);
+        return this;
+    }
+
+    method void start() {
+        do draw.cursor(xPos,yPos);
+        return;
+    }
+
+    method void moveUp() {
+        do Screen.setColor(false);
+        do draw.cursor(xPos,yPos);
+        if(yPos>32) {
+            let yPos = yPos-16;
+        }
+        do Screen.setColor(true);
+        do draw.cursor(xPos,yPos);
+        return;
+    }
+
+    method void moveDown() {
+        do Screen.setColor(false);
+        do draw.cursor(xPos,yPos);
+        if(yPos<yMax) {
+            let yPos = yPos+16;
+        }
+        do Screen.setColor(true);
+        do draw.cursor(xPos,yPos);
+        return;
+    }
+
+    method void moveLeft() {
+        do Screen.setColor(false);
+        do draw.cursor(xPos,yPos);
+        if(xPos > 32) {
+            let xPos = xPos-16;
+        }
+        do Screen.setColor(true);
+        do draw.cursor(xPos,yPos);
+        return;
+    }
+
+    method void moveRight() {
+        do Screen.setColor(false);
+        do draw.cursor(xPos,yPos);
+        if(xPos < xMax) {
+            let xPos = xPos+16;
+        }
+        do Screen.setColor(true);
+        do draw.cursor(xPos,yPos);
+        return;
+    }
+
+    method int getX() {
+        return xPos;
+    }
+
+    method int getY() {
+        return yPos;
+    }
+
+    method void disappear() {
+        do Screen.setColor(false);
+        do draw.cursor(xPos,yPos);
+        do Screen.setColor(true);
+        return;
+    }
+
+
+
+    method void dispose() {
+            do Memory.deAlloc(this);
+            return;
+    }
+
+    method int getFeld(int xSize) {
+        var int x,y,counter;
+        let x=(xPos/16)-2;
+        let y=(yPos/16)-2;
+        let counter = 0;
+        let feld = 0;
+        while(counter < y) {
+         let feld = feld + xSize;
+         let counter = counter +1;
+        }
+        let feld= feld+x;
+        return feld;
+    }
+}

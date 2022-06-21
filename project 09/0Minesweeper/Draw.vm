@@ -1,0 +1,659 @@
+function Draw.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push pointer 0
+return
+function Draw.flag 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 14
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 6
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 9
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 6
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.cursor 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 8
+add
+push argument 2
+push constant 8
+add
+push constant 5
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push argument 1
+push constant 8
+add
+push argument 2
+push constant 8
+add
+push constant 3
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 0
+return
+function Draw.mine 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 1
+add
+push argument 2
+push constant 1
+add
+push argument 1
+push constant 15
+add
+push argument 2
+push constant 15
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 15
+add
+push argument 2
+push constant 1
+add
+push argument 1
+push constant 1
+add
+push argument 2
+push constant 15
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.zero 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.one 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 7
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 7
+add
+push argument 2
+push constant 13
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 7
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 4
+add
+push argument 2
+push constant 6
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.two 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 7
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 7
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.three 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 7
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.four 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 8
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 11
+add
+push argument 2
+push constant 8
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 8
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.five 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 7
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 7
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.six 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 7
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.seven 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 5
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.eight 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 12
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 3
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 7
+add
+push argument 1
+push constant 10
+add
+push argument 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Draw.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,41 @@
+class Message{
+    field int x;
+    constructor Message new() {
+        return this;
+    }
+
+    method void greeting() {
+        do Output.moveCursor(2,16);
+        do Output.printString("Willkommen zu MINESWEEPER!");
+        do Output.moveCursor(6,4);
+        do Output.printString("How to play?");
+        do Output.println();
+        do Output.println();
+        do Output.printString("Move Cursor: Use Arrow-Keys");
+        do Output.println();
+        do Output.printString("Flag Filed: f-Key");
+        do Output.println();
+        do Output.printString("Reveal Field: Enter-Key");
+        do Output.println();
+        do Output.printString("Exit Game: q-Key");
+        do Output.moveCursor(20,16);
+        return;
+    }
+
+    method void lost() {
+        do Output.moveCursor(1,20);
+        do Output.printString("YOU LOST! TRY AGAIN!");
+        return;
+    }
+
+    method void won() {
+        do Output.moveCursor(1,20);
+        do Output.printString("YOU WON! CONGRATULATIONS!");
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

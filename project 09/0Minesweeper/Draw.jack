@@ -1,0 +1,104 @@
+class Draw {
+    field int bla;
+
+    constructor Draw new() {
+        return this;
+    }
+
+    method void flag(int x, int y) {
+        do Screen.drawLine(x+3,y+3,x+3,y+14);
+        do Screen.drawLine(x+3,y+3,x+10,y+6);
+        do Screen.drawLine(x+3,y+9,x+10,y+6);
+        return;
+    }
+
+    method void cursor(int x,int y) {
+        do Screen.drawCircle(x+8,y+8,5);
+        do Screen.setColor(false);
+        do Screen.drawCircle(x+8,y+8,3);
+        do Screen.setColor(true);
+        return;
+    }
+
+    method void mine(int x, int y) {
+        do Screen.drawLine(x+1,y+1,x+15,y+15);
+        do Screen.drawLine(x+15,y+1,x+1,y+15);
+        return;
+    }
+
+    method void zero(int x, int y) {
+        do Screen.drawLine(x+3,y+3,x+3,y+12);
+        do Screen.drawLine(x+3,y+3,x+10,y+3);
+        do Screen.drawLine(x+10,y+12, x+3, y+12);
+        do Screen.drawLine(x+10,y+12, x+10, y+3);
+        return;
+    }
+
+    method void one(int x, int y) {
+        do Screen.drawLine(x+7,y+3, x+7,y+13);
+        do Screen.drawLine(x+7,y+3, x+4, y+6);
+        return;
+    }
+
+    method void two(int x, int y) {
+        do Screen.drawLine(x+3,y+3, x+10,y+3);
+        do Screen.drawLine(x+10,y+3, x+10,y+7);
+        do Screen.drawLine(x+10,y+7, x+3,y+7);
+        do Screen.drawLine(x+3,y+7, x+3,y+12);
+        do Screen.drawLine(x+3,y+12, x+10,y+12);
+        return;
+    }
+
+    method void three(int x, int y) {
+        do Screen.drawLine(x+10,y+3, x+10, y+12);
+        do Screen.drawLine(x+10,y+3, x+3, y+3);
+        do Screen.drawLine(x+10,y+7, x+3, y+7);
+        do Screen.drawLine(x+10,y+12, x+3, y+12);
+        return;
+    }
+
+    method void four(int x, int y) {
+        do Screen.drawLine(x+10,y+3, x+10, y+12);
+        do Screen.drawLine(x+10,y+3, x+3, y+8);
+        do Screen.drawLine(x+11,y+8, x+3, y+8);
+        return;
+    }
+
+    method void five(int x, int y) {
+        do Screen.drawLine(x+3,y+3,x+10,y+3);
+        do Screen.drawLine(x+3,y+3,x+3,y+7);
+        do Screen.drawLine(x+3,y+7,x+10,y+7);
+        do Screen.drawLine(x+10,y+7,x+10,y+12);
+        do Screen.drawLine(x+10,y+12,x+3,y+12);
+        return;
+    }
+
+    method void six(int x, int y) {
+        do Screen.drawLine(x+3,y+3, x+10,y+3);
+        do Screen.drawLine(x+3,y+3, x+3,y+12);
+        do Screen.drawLine(x+3,y+12, x+10,y+12);
+        do Screen.drawLine(x+10,y+12, x+10,y+7);
+        do Screen.drawLine(x+3,y+7,x+10,y+7);
+        return;
+    }
+
+    method void seven(int x, int y) {
+        do Screen.drawLine(x+3,y+3,x+10,y+3);
+        do Screen.drawLine(x+10,y+3,x+5,y+12);
+        return;
+    }
+
+    method void eight(int x, int y) {
+        do Screen.drawLine(x+3,y+3,x+3,y+12);
+        do Screen.drawLine(x+3,y+3,x+10,y+3);
+        do Screen.drawLine(x+10,y+12, x+3, y+12);
+        do Screen.drawLine(x+10,y+12, x+10, y+3);
+        do Screen.drawLine(x+3,y+7,x+10,y+7);
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

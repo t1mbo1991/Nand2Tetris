@@ -1,0 +1,246 @@
+function Cursor.new 0
+push constant 6
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push constant 16
+call Math.multiply 2
+pop this 0
+push argument 1
+push constant 16
+call Math.multiply 2
+pop this 1
+call Draw.new 0
+pop this 2
+push constant 16
+push constant 16
+push argument 3
+call Math.multiply 2
+add
+pop this 4
+push constant 16
+push constant 16
+push argument 2
+call Math.multiply 2
+add
+pop this 5
+push pointer 0
+return
+function Cursor.start 0
+push argument 0
+pop pointer 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push constant 0
+return
+function Cursor.moveUp 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push this 1
+push constant 32
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 16
+sub
+pop this 1
+label IF_FALSE0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push constant 0
+return
+function Cursor.moveDown 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push this 1
+push this 4
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 16
+add
+pop this 1
+label IF_FALSE0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push constant 0
+return
+function Cursor.moveLeft 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push this 0
+push constant 32
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push constant 16
+sub
+pop this 0
+label IF_FALSE0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push constant 0
+return
+function Cursor.moveRight 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push this 0
+push this 5
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push constant 16
+add
+pop this 0
+label IF_FALSE0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push constant 0
+return
+function Cursor.getX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Cursor.getY 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Cursor.disappear 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 0
+push this 1
+call Draw.cursor 3
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 0
+return
+function Cursor.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Cursor.getFeld 3
+push argument 0
+pop pointer 0
+push this 0
+push constant 16
+call Math.divide 2
+push constant 2
+sub
+pop local 0
+push this 1
+push constant 16
+call Math.divide 2
+push constant 2
+sub
+pop local 1
+push constant 0
+pop local 2
+push constant 0
+pop this 3
+label WHILE_EXP0
+push local 2
+push local 1
+lt
+not
+if-goto WHILE_END0
+push this 3
+push argument 1
+add
+pop this 3
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push this 3
+push local 0
+add
+pop this 3
+push this 3
+return
